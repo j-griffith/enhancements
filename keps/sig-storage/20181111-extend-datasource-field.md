@@ -12,7 +12,7 @@ approvers:
   - "@thockin"
 editor: "@j-griffith"
 creation-date: 2018-11-11
-last-updated: 2019-07-17
+last-updated: 2020-01-27
 status: implementable
 see-also:
 replaces:
@@ -123,6 +123,18 @@ The primary risk of this feature is requesting a PVC DataSource when using a CSI
 
 Due to the similarities between Clones and Snapshots, it is possible that some back ends may require queiscing in-use volumes before cloning.  This proposal suggests that initially, if a csi plugin is unable to safely perform the requested clone operation, it's the csi plugins responsibility to reject the request.  Going forward, when execution hooks are available (currently being proposed for consistent snapshots), that same mechanism should be made generally usable to apply to Clones as well.
 
+## Test Plan
+
+### Unit tests
+
+Unit tests are already in place and include:
+* Unit tests ensure that spec that includes PVC DataSource is interpretted correctly
+* When a PVC DataSource is specified in the spec the resultant PVC object includes the cooresponding DataSource entry
+
+### E2E tests
+
+Require addition of E2E tests using the clone feature of the CSI host provisioner
+
 ## Graduation Criteria
 * API changes allowing specification of a PVC as a valid DataSource in a new PVC spec
 * Implementation of the PVC DataSource in the CSI external provisioner
@@ -134,6 +146,8 @@ Given that the only implementation changes in Kuberenetes is to enable the featu
 ## Implementation History
 
 1.15 - Alpha status
+1.16 - Beta status
+1.18 - GA Status
 
 ## Drawbacks [optional]
 
